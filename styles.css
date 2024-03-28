@@ -52,7 +52,7 @@ body {
   overflow-y: hidden;
 }
 
-.inicio {
+.start {
   margin: 250px auto;
   width: 200px;
   height: 100px;
@@ -64,7 +64,7 @@ body {
   cursor: pointer;
 }
 
-.inicio:hover {
+.start:hover {
   background-color: rgb(255, 225, 53);
 }
 
@@ -77,7 +77,7 @@ body {
   text-align: start;
 }
 
-.place-crupier {
+.place-croupier {
   width: 200px;
   height: 200px;
   margin: 0 auto;
@@ -91,47 +91,47 @@ body {
   width: 90px;
   height: 140px;
   border: 2px solid #000;
-  background: url(imagenes/carta.jpg);
+  background: url(images/card.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   text-align: start;
 }
 
-.card-0-crupier {
+.card-0-croupier {
   position: absolute;
   margin: 10px 0px 0px 30px;
 }
 
-.card-1-crupier {
+.card-1-croupier {
   position: absolute;
 }
 
-.card-2-crupier {
+.card-2-croupier {
   position: absolute;
   margin: 10px 0px 0px 30px;
 }
 
-.card-3-crupier {
+.card-3-croupier {
   position: absolute;
   margin: 20px 0px 0px 60px;
 }
 
-.card-4-crupier {
+.card-4-croupier {
   position: absolute;
   margin: 30px 0px 0px 90px;
 }
 
-.card-5-crupier {
+.card-5-croupier {
   position: absolute;
   margin: 40px 0px 0px 120px;
 }
 
-.card-6-crupier {
+.card-6-croupier {
   position: absolute;
   margin: 50px 0px 0px 150px;
 }
 
-.div-total-crupier {
+.div-total-croupier {
   width: 40px;
   height: 20px;
   border-radius: 50%;
@@ -222,7 +222,7 @@ body {
   border: none;
 }
 
-.input-hit-escondido {
+.input-hit-hidden {
   visibility: hidden;
 }
 
@@ -230,7 +230,7 @@ body {
   visibility: visible;
 }
 
-.input-hit-2escondido {
+.input-hit-2-hidden {
   visibility: hidden;
   margin-left: 300px;
 }
@@ -252,7 +252,7 @@ body {
   border: none;
 }
 
-.input-stand-escondido {
+.input-stand-hidden {
   visibility: hidden;
 }
 
@@ -260,7 +260,7 @@ body {
   visibility: visible;
 }
 
-.input-stand-2escondido {
+.input-stand-2-hidden {
   visibility: hidden;
 }
 
@@ -280,7 +280,7 @@ body {
   visibility: visible;
 }
 
-.input-split-escondido {
+.input-split-hidden {
   width: 90px;
   height: 40px;
   font-size: 20px;
@@ -292,7 +292,7 @@ body {
   visibility: hidden;
 }
 
-.background-div-ganador {
+.winner-background-div {
   box-sizing: border-box;
   width: 100%;
   height: 100%;
@@ -303,7 +303,7 @@ body {
   display: flex;
 }
 
-.div-ganador {
+.div-winner {
   width: 400px;
   height: 130px;
   background-color: #fff;
@@ -328,7 +328,7 @@ h2 {
   font-size: 25px;
 }
 
-.div-player-y-player2 {
+.div-player-and-player2 {
   margin: 150px auto 0px auto;
   width: 700px;
   height: 250px;
@@ -354,8 +354,4 @@ h2 {
   position: absolute;
   bottom: -20px;
   background-color: #fff;
-}
-
-.prueba {
-  background-color: rgb(20, 132, 223);
 }
