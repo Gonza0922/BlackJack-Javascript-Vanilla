@@ -21,33 +21,15 @@ let croupierCardValue = [];
 function createPlayerCard(i) {
   let randomValue = Math.round(Math.random() * 12 + 1);
   let randomLetter;
-  if (randomValue === 2) {
-    randomLetter = 2;
-  }
-  if (randomValue === 3) {
-    randomLetter = 3;
-  }
-  if (randomValue === 4) {
-    randomLetter = 4;
-  }
-  if (randomValue === 5) {
-    randomLetter = 5;
-  }
-  if (randomValue === 6) {
-    randomLetter = 6;
-  }
-  if (randomValue === 7) {
-    randomLetter = 7;
-  }
-  if (randomValue === 8) {
-    randomLetter = 8;
-  }
-  if (randomValue === 9) {
-    randomLetter = 9;
-  }
-  if (randomValue === 10) {
-    randomLetter = 10;
-  }
+  if (randomValue === 2) randomLetter = 2;
+  if (randomValue === 3) randomLetter = 3;
+  if (randomValue === 4) randomLetter = 4;
+  if (randomValue === 5) randomLetter = 5;
+  if (randomValue === 6) randomLetter = 6;
+  if (randomValue === 7) randomLetter = 7;
+  if (randomValue === 8) randomLetter = 8;
+  if (randomValue === 9) randomLetter = 9;
+  if (randomValue === 10) randomLetter = 10;
   if (randomValue === 11) {
     randomLetter = "J";
     randomValue = 10;
@@ -78,33 +60,15 @@ function createPlayerCard(i) {
 function createCroupierCard(i) {
   let randomValue = Math.round(Math.random() * 12 + 1);
   let randomLetter;
-  if (randomValue === 2) {
-    randomLetter = 2;
-  }
-  if (randomValue === 3) {
-    randomLetter = 3;
-  }
-  if (randomValue === 4) {
-    randomLetter = 4;
-  }
-  if (randomValue === 5) {
-    randomLetter = 5;
-  }
-  if (randomValue === 6) {
-    randomLetter = 6;
-  }
-  if (randomValue === 7) {
-    randomLetter = 7;
-  }
-  if (randomValue === 8) {
-    randomLetter = 8;
-  }
-  if (randomValue === 9) {
-    randomLetter = 9;
-  }
-  if (randomValue === 10) {
-    randomLetter = 10;
-  }
+  if (randomValue === 2) randomLetter = 2;
+  if (randomValue === 3) randomLetter = 3;
+  if (randomValue === 4) randomLetter = 4;
+  if (randomValue === 5) randomLetter = 5;
+  if (randomValue === 6) randomLetter = 6;
+  if (randomValue === 7) randomLetter = 7;
+  if (randomValue === 8) randomLetter = 8;
+  if (randomValue === 9) randomLetter = 9;
+  if (randomValue === 10) randomLetter = 10;
   if (randomValue === 11) {
     randomLetter = "J";
     randomValue = 10;
@@ -185,7 +149,6 @@ function winner(person) {
       winnerDiv.style.color = "rgb(218, 165, 32)";
       winnerDiv.style.border = "5px solid rgb(218, 165, 32)";
     } else if (person === croupier) {
-      console.log("Es el que digo");
       styleLose(totalPlayer);
       winnerDiv.style.backgroundColor = "rgb(49, 49, 49)";
       winnerDiv.style.color = "rgb(255, 255, 255)";
@@ -331,9 +294,7 @@ deal.addEventListener("click", () => {
     let croupierCounter = 3;
     createCroupierCard(2);
     ItsAS(totalCroupier, croupierCardValue);
-    if (totalCroupier.innerHTML === 21) {
-      winner(croupier);
-    }
+    if (totalCroupier.innerHTML === 21) winner(croupier);
     let int = setInterval(() => {
       while (
         totalCroupier.innerHTML != 17 &&
@@ -406,33 +367,15 @@ deal.addEventListener("click", () => {
         // let randomValue = Math.round(Math.random()*12+1);
         let randomValue = Math.round(Math.random());
         let randomLetter;
-        if (randomValue === 2) {
-          randomLetter = 2;
-        }
-        if (randomValue === 3) {
-          randomLetter = 3;
-        }
-        if (randomValue === 4) {
-          randomLetter = 4;
-        }
-        if (randomValue === 5) {
-          randomLetter = 5;
-        }
-        if (randomValue === 6) {
-          randomLetter = 6;
-        }
-        if (randomValue === 7) {
-          randomLetter = 7;
-        }
-        if (randomValue === 8) {
-          randomLetter = 8;
-        }
-        if (randomValue === 9) {
-          randomLetter = 9;
-        }
-        if (randomValue === 10) {
-          randomLetter = 10;
-        }
+        if (randomValue === 2) randomLetter = 2;
+        if (randomValue === 3) randomLetter = 3;
+        if (randomValue === 4) randomLetter = 4;
+        if (randomValue === 5) randomLetter = 5;
+        if (randomValue === 6) randomLetter = 6;
+        if (randomValue === 7) randomLetter = 7;
+        if (randomValue === 8) randomLetter = 8;
+        if (randomValue === 9) randomLetter = 9;
+        if (randomValue === 10) randomLetter = 10;
         if (randomValue === 11) {
           randomLetter = "J";
           randomValue = 10;
@@ -471,9 +414,7 @@ deal.addEventListener("click", () => {
       ) {
         card2.innerHTML = 10;
       }
-      if (card2.innerHTML === "A") {
-        card2.innerHTML = 1;
-      }
+      if (card2.innerHTML === "A") card2.innerHTML = 1;
       totalPlayer.innerHTML = totalPlayer.innerHTML - card2.innerHTML;
 
       let card = document.createElement("DIV");
@@ -489,9 +430,7 @@ deal.addEventListener("click", () => {
       ) {
         card2.innerHTML = 10;
       }
-      if (card2.innerHTML === "A") {
-        card2.innerHTML = 1;
-      }
+      if (card2.innerHTML === "A") card2.innerHTML = 1;
       totalPlayer2.innerHTML = card2.innerHTML;
 
       let inputHitSplit = document.querySelector(".input-hit");
@@ -523,17 +462,12 @@ deal.addEventListener("click", () => {
           remove(inputHitSplit2, inputStandSplit2);
           createCroupierCard(2);
           ItsAS(totalCroupier, croupierCardValue);
-          if (totalCroupier.innerHTML === 21) {
+          if (totalCroupier.innerHTML === 21)
             winnerSplitBoth(croupierSplit, both);
-          }
-          if (totP === undefined) {
-            totP = totalPlayer.innerHTML;
-          }
+          if (totP === undefined) totP = totalPlayer.innerHTML;
           if (totP2 === undefined) {
             totP2 = totalPlayer2.innerHTML;
-            if (totP2 === "BJ") {
-              totP2 = 21;
-            }
+            if (totP2 === "BJ") totP2 = 21;
           }
           let intSplit = setInterval(() => {
             while (
@@ -608,15 +542,11 @@ deal.addEventListener("click", () => {
           }, 1000);
         });
         //Observe
-      } else {
-        console.log("its not");
-      }
+      } else console.log("its not");
 
       console.log(player1CardValue);
       createPlayerCard(2);
-      if (Number(totalPlayer.innerHTML) === 21) {
-        remplaceClasses();
-      }
+      if (Number(totalPlayer.innerHTML) === 21) remplaceClasses();
       console.log(player1CardValue);
 
       // player 1, hit and stand
@@ -633,9 +563,7 @@ deal.addEventListener("click", () => {
         }
       });
 
-      inputStandSplit.addEventListener("click", () => {
-        remplaceClasses();
-      });
+      inputStandSplit.addEventListener("click", remplaceClasses);
 
       // player 2, hit and stand
       let totP2;
@@ -644,9 +572,7 @@ deal.addEventListener("click", () => {
         createPlayerCard2(playerSplitCounter2);
         playerSplitCounter2 += 1;
         ASPasses21(totalPlayer2, player2CardValue);
-        if (totP === undefined) {
-          totP = totalPlayer.innerHTML;
-        }
+        if (totP === undefined) totP = totalPlayer.innerHTML;
         if (totP > 21 && totalPlayer2.innerHTML > 21) {
           remove(inputHitSplit2, inputStandSplit2);
           console.log(`both over 21`);
@@ -659,12 +585,9 @@ deal.addEventListener("click", () => {
           styleBust(totalPlayer2);
           createCroupierCard(2);
           ItsAS(totalCroupier, croupierCardValue);
-          if (totalCroupier.innerHTML === 21) {
+          if (totalCroupier.innerHTML === 21)
             winnerSplitBoth(croupierSplit, both);
-          }
-          if (totP2 === undefined) {
-            totP2 = totalPlayer2.innerHTML;
-          }
+          if (totP2 === undefined) totP2 = totalPlayer2.innerHTML;
           let intSplit = setInterval(() => {
             while (
               totalCroupier.innerHTML != 17 &&
@@ -851,15 +774,10 @@ deal.addEventListener("click", () => {
         remove(inputHitSplit2, inputStandSplit2);
         createCroupierCard(2);
         ItsAS(totalCroupier, croupierCardValue);
-        if (totalCroupier.innerHTML === 21) {
+        if (totalCroupier.innerHTML === 21)
           winnerSplitBoth(croupierSplit, both);
-        }
-        if (totP === undefined) {
-          totP = totalPlayer.innerHTML;
-        }
-        if (totP2 === undefined) {
-          totP2 = totalPlayer2.innerHTML;
-        }
+        if (totP === undefined) totP = totalPlayer.innerHTML;
+        if (totP2 === undefined) totP2 = totalPlayer2.innerHTML;
         let intSplit = setInterval(() => {
           while (
             totalCroupier.innerHTML != 17 &&
@@ -1040,9 +958,8 @@ deal.addEventListener("click", () => {
       if (
         buttons.innerHTML ===
         `<input type="button" value="Hit" id="hit"><input type="button" value="Stand" id="stand"><input type="button" value="Split" class="input-split">`
-      ) {
+      )
         inputSplit.classList.replace("input-split", "input-split-hidden");
-      }
       createPlayerCard(playerCounter);
       playerCounter += 1;
       if (totalPlayer.innerHTML > 21) {
@@ -1069,9 +986,8 @@ deal.addEventListener("click", () => {
       if (
         buttons.innerHTML ===
         `<input type="button" value="Hit" id="hit"><input type="button" value="Stand" id="stand"><input type="button" value="Split" class="input-split">`
-      ) {
+      )
         buttons.removeChild(inputSplit);
-      }
       remove(inputHit, inputStand);
       cardsInterval();
     });
