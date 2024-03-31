@@ -19,46 +19,7 @@ let player2CardValue = [];
 let croupierCardValue = [];
 
 function createPlayerCard(i) {
-  let randomValue = Math.round(Math.random() * 12 + 1);
-  let randomLetter;
-  if (randomValue === 2) randomLetter = 2;
-  if (randomValue === 3) randomLetter = 3;
-  if (randomValue === 4) randomLetter = 4;
-  if (randomValue === 5) randomLetter = 5;
-  if (randomValue === 6) randomLetter = 6;
-  if (randomValue === 7) randomLetter = 7;
-  if (randomValue === 8) randomLetter = 8;
-  if (randomValue === 9) randomLetter = 9;
-  if (randomValue === 10) randomLetter = 10;
-  if (randomValue === 11) {
-    randomLetter = "J";
-    randomValue = 10;
-  }
-  if (randomValue === 12) {
-    randomLetter = "Q";
-    randomValue = 10;
-  }
-  if (randomValue === 0) {
-    randomLetter = "K";
-    randomValue = 10;
-  }
-  if (randomValue === 1) {
-    randomLetter = "A";
-    randomValue = 1;
-  }
-  let card = document.createElement("DIV");
-  placePlayer.appendChild(card);
-  card.classList.add(`card-${i}-player`);
-  card.setAttribute("id", "card");
-  placePlayer.appendChild(totalPlayer);
-  totalPlayer.innerHTML = Number(totalPlayer.innerHTML) + randomValue;
-  card.innerHTML = randomLetter;
-  player1CardValue.push(randomValue);
-  return randomValue;
-}
-
-function createCroupierCard(i) {
-  let randomValue = Math.round(Math.random() * 12 + 1);
+  let randomValue = Math.round(Math.random() * 13 + 1);
   let randomLetter;
   if (randomValue === 2) randomLetter = 2;
   if (randomValue === 3) randomLetter = 3;
@@ -85,6 +46,55 @@ function createCroupierCard(i) {
     randomLetter = "A";
     randomValue = 1;
   }
+  if (randomLetter === undefined) {
+    randomLetter = 10;
+    randomValue = 10;
+  }
+  console.log(randomLetter);
+  let card = document.createElement("DIV");
+  placePlayer.appendChild(card);
+  card.classList.add(`card-${i}-player`);
+  card.setAttribute("id", "card");
+  placePlayer.appendChild(totalPlayer);
+  totalPlayer.innerHTML = Number(totalPlayer.innerHTML) + randomValue;
+  card.innerHTML = randomLetter;
+  player1CardValue.push(randomValue);
+  return randomValue;
+}
+
+function createCroupierCard(i) {
+  let randomValue = Math.round(Math.random() * 13 + 1);
+  let randomLetter;
+  if (randomValue === 2) randomLetter = 2;
+  if (randomValue === 3) randomLetter = 3;
+  if (randomValue === 4) randomLetter = 4;
+  if (randomValue === 5) randomLetter = 5;
+  if (randomValue === 6) randomLetter = 6;
+  if (randomValue === 7) randomLetter = 7;
+  if (randomValue === 8) randomLetter = 8;
+  if (randomValue === 9) randomLetter = 9;
+  if (randomValue === 10) randomLetter = 10;
+  if (randomValue === 11) {
+    randomLetter = "J";
+    randomValue = 10;
+  }
+  if (randomValue === 12) {
+    randomLetter = "Q";
+    randomValue = 10;
+  }
+  if (randomValue === 13) {
+    randomLetter = "K";
+    randomValue = 10;
+  }
+  if (randomValue === 1) {
+    randomLetter = "A";
+    randomValue = 1;
+  }
+  if (randomLetter === undefined) {
+    randomLetter = 10;
+    randomValue = 10;
+  }
+  console.log(randomLetter);
   let card = document.createElement("DIV");
   placeCroupier.appendChild(card);
   card.classList.add(`card-${i}-croupier`);
@@ -99,30 +109,35 @@ function createCroupierCard(i) {
 function styleWin(total) {
   total.style.backgroundColor = "rgb(218, 165, 32)";
   total.style.color = "rgb(49, 49, 49)";
+  total.style.fontSize = "14px";
   total.innerHTML = "Win";
 }
 
 function styleLose(total) {
   total.style.backgroundColor = "rgb(49, 49, 49)";
   total.style.color = "rgb(255, 255, 255)";
+  total.style.fontSize = "14px";
   total.innerHTML = "Lose";
 }
 
 function stylePush(total) {
   total.style.backgroundColor = "rgb(20, 132, 223)";
   total.style.color = "rgb(49, 49, 49)";
+  total.style.fontSize = "14px";
   total.innerHTML = "Push";
 }
 
 function styleBust(total) {
   total.style.backgroundColor = "rgb(49, 49, 49)";
   total.style.color = "rgb(255, 255, 255)";
+  total.style.fontSize = "14px";
   total.innerHTML = "Bust";
 }
 
 function styleBJ(total) {
   total.style.backgroundColor = "rgb(218, 165, 32)";
   total.style.color = "rgb(49, 49, 49)";
+  total.style.fontSize = "14px";
   total.innerHTML = "BJ";
 }
 
@@ -364,8 +379,7 @@ deal.addEventListener("click", () => {
       totalPlayer2.classList.add("div-total-player2");
 
       function createPlayerCard2(i) {
-        // let randomValue = Math.round(Math.random()*12+1);
-        let randomValue = Math.round(Math.random());
+        let randomValue = Math.round(Math.random() * 13 + 1);
         let randomLetter;
         if (randomValue === 2) randomLetter = 2;
         if (randomValue === 3) randomLetter = 3;
@@ -384,13 +398,17 @@ deal.addEventListener("click", () => {
           randomLetter = "Q";
           randomValue = 10;
         }
-        if (randomValue === 0) {
+        if (randomValue === 13) {
           randomLetter = "K";
           randomValue = 10;
         }
         if (randomValue === 1) {
           randomLetter = "A";
           randomValue = 1;
+        }
+        if (randomLetter === undefined) {
+          randomLetter = 10;
+          randomValue = 10;
         }
         let card = document.createElement("DIV");
         placePlayer2.appendChild(card);
