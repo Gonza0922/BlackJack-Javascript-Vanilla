@@ -131,6 +131,11 @@ body {
   margin: 50px 0px 0px 150px;
 }
 
+.card-7-croupier {
+  position: absolute;
+  margin: 60px 0px 0px 1800px;
+}
+
 .div-total-croupier {
   display: flex;
   justify-content: center;
@@ -192,6 +197,21 @@ body {
 .card-6-player {
   position: absolute;
   margin: 50px 0px 0px 150px;
+}
+
+.card-7-player {
+  position: absolute;
+  margin: 60px 0px 0px 180px;
+}
+
+.card-8-player {
+  position: absolute;
+  margin: 70px 0px 0px 210px;
+}
+
+.card-9-player {
+  position: absolute;
+  margin: 80px 0px 0px 240px;
 }
 
 .div-total-player {

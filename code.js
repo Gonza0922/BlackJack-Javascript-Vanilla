@@ -18,6 +18,50 @@ let player1CardValue = [];
 let player2CardValue = [];
 let croupierCardValue = [];
 
+// function cartaAcordadaPlayer(i, value) {
+//   let randomValue = value;
+//   let randomLetter;
+//   if (randomValue === 2) randomLetter = 2;
+//   if (randomValue === 3) randomLetter = 3;
+//   if (randomValue === 4) randomLetter = 4;
+//   if (randomValue === 5) randomLetter = 5;
+//   if (randomValue === 6) randomLetter = 6;
+//   if (randomValue === 7) randomLetter = 7;
+//   if (randomValue === 8) randomLetter = 8;
+//   if (randomValue === 9) randomLetter = 9;
+//   if (randomValue === 10) randomLetter = 10;
+//   if (randomValue === 11) {
+//     randomLetter = "J";
+//     randomValue = 10;
+//   }
+//   if (randomValue === 12) {
+//     randomLetter = "Q";
+//     randomValue = 10;
+//   }
+//   if (randomValue === 13) {
+//     randomLetter = "K";
+//     randomValue = 10;
+//   }
+//   if (randomValue === 1) {
+//     randomLetter = "A";
+//     randomValue = 1;
+//   }
+//   if (randomLetter === undefined) {
+//     randomLetter = 10;
+//     randomValue = 10;
+//   }
+//   // console.log(randomLetter);
+//   let card = document.createElement("DIV");
+//   placePlayer.appendChild(card);
+//   card.classList.add(`card-${i}-player`);
+//   card.setAttribute("id", "card");
+//   placePlayer.appendChild(totalPlayer);
+//   totalPlayer.innerHTML = Number(totalPlayer.innerHTML) + randomValue;
+//   card.innerHTML = randomLetter;
+//   player1CardValue.push(randomValue);
+//   return randomValue;
+// }
+
 function createPlayerCard(i) {
   let randomValue = Math.round(Math.random() * 13 + 1);
   let randomLetter;
@@ -50,7 +94,7 @@ function createPlayerCard(i) {
     randomLetter = 10;
     randomValue = 10;
   }
-  console.log(randomLetter);
+  //console.log(randomLetter);
   let card = document.createElement("DIV");
   placePlayer.appendChild(card);
   card.classList.add(`card-${i}-player`);
@@ -94,7 +138,7 @@ function createCroupierCard(i) {
     randomLetter = 10;
     randomValue = 10;
   }
-  console.log(randomLetter);
+  //console.log(randomLetter);
   let card = document.createElement("DIV");
   placeCroupier.appendChild(card);
   card.classList.add(`card-${i}-croupier`);
@@ -187,14 +231,16 @@ function winner(person) {
   }, 800);
 }
 
+const blackJackSplit = "BLACKJACK in";
 const croupierSplit = "Croupier wins over";
 const playerSplit = "Player wins in";
 const drawSplit = "Draw in";
 const passedSplit = "Player passed 21 in";
 const deck1 = "game 1";
 const deck2 = "game 2";
+const both = "both games";
 
-function winnerSplit(person1, deck1, person2, deck2) {
+function resultSplit(person1, deck1, person2, deck2) {
   setTimeout(() => {
     let winnerBackground = document.createElement("DIV");
     container.appendChild(winnerBackground);
@@ -213,9 +259,7 @@ function winnerSplit(person1, deck1, person2, deck2) {
   }, 800);
 }
 
-const both = "both juegos";
-
-function winnerSplitBoth(person, deck) {
+function resultSplitBoth(person, deck) {
   setTimeout(() => {
     let winnerBackground = document.createElement("DIV");
     container.appendChild(winnerBackground);
@@ -263,11 +307,15 @@ function winnerBlackJack(person) {
 
 function itsAS(totalReceiver, receiverCardValue) {
   const total = Number(totalReceiver.innerHTML);
-  console.log(total);
   if (receiverCardValue.includes(1) && total <= 11) {
-    totalReceiver.innerHTML = total + 10;
-    console.log(totalReceiver.innerHTML);
+    if (total <= 10) {
+      totalReceiver.innerHTML = `${total}/${total + 10}`;
+      totalReceiver.style.fontSize = "14px";
+    } else {
+      totalReceiver.innerHTML = total + 10;
+    }
   }
+  console.log(total);
 }
 
 function ASPasses21(totalReceiver, receiverCardValue) {
@@ -284,6 +332,34 @@ function ASPasses21(totalReceiver, receiverCardValue) {
     console.log(totalReceiver.innerHTML);
     totalReceiver.innerHTML = total - 10;
     receiverCardValue.fill(0);
+  }
+}
+
+function ASWhenStand(totalReceiver, receiverCardValue) {
+  if (receiverCardValue.includes(1)) {
+    if (totalReceiver.innerHTML.length === 4) {
+      totalReceiver.innerHTML = Number(
+        totalReceiver.innerHTML[2] + totalReceiver.innerHTML[3]
+      );
+    } else if (totalReceiver.innerHTML.length === 5) {
+      totalReceiver.innerHTML = Number(
+        totalReceiver.innerHTML[3] + totalReceiver.innerHTML[4]
+      );
+    }
+    totalReceiver.style.fontSize = "16px";
+  }
+}
+
+function ASWhenHit(totalReceiver, receiverCardValue) {
+  if (receiverCardValue.includes(1)) {
+    if (totalReceiver.innerHTML.length === 4) {
+      totalReceiver.innerHTML = Number(totalReceiver.innerHTML[0]);
+    } else if (totalReceiver.innerHTML.length === 5) {
+      totalReceiver.innerHTML = Number(
+        totalReceiver.innerHTML[0] + totalReceiver.innerHTML[1]
+      );
+    }
+    totalReceiver.style.fontSize = "16px";
   }
 }
 
@@ -319,7 +395,7 @@ deal.addEventListener("click", () => {
       ) {
         createCroupierCard(croupierCounter);
         croupierCounter += 1;
-        ASPasses21(totalCroupier, croupierCardValue, croupierCounter);
+        ASPasses21(totalCroupier, croupierCardValue);
       }
       if (totalCroupier.innerHTML === 21) {
         if (totalPlayer.innerHTML === totalCroupier.innerHTML) {
@@ -353,6 +429,7 @@ deal.addEventListener("click", () => {
   }
 
   if (createPlayerCard(1) === createPlayerCard(2)) {
+    // if (cartaAcordadaPlayer(1, 1) === cartaAcordadaPlayer(2, 1)) {
     itsAS(totalPlayer, player1CardValue);
     buttons.innerHTML = `<input type="button" value="Hit" id="hit"><input type="button" value="Stand" id="stand"><input type="button" value="Split" class="input-split">`;
     let player1AndPlayer2 = document.querySelector(".div-player-and-player2");
@@ -376,7 +453,7 @@ deal.addEventListener("click", () => {
       let totalPlayer2 = document.createElement("DIV");
       totalPlayer2.classList.add("div-total-player2");
 
-      function createPlayerCard2(i) {
+      function createPlayer2Card(i) {
         let randomValue = Math.round(Math.random() * 13 + 1);
         let randomLetter;
         if (randomValue === 2) randomLetter = 2;
@@ -427,10 +504,10 @@ deal.addEventListener("click", () => {
         card2.innerHTML === "K" ||
         card2.innerHTML === "Q" ||
         card2.innerHTML === "J"
-      ) {
+      )
         card2.innerHTML = 10;
-      }
       if (card2.innerHTML === "A") card2.innerHTML = 1;
+      ASWhenHit(totalPlayer, player1CardValue);
       totalPlayer.innerHTML = totalPlayer.innerHTML - card2.innerHTML;
 
       let card = document.createElement("DIV");
@@ -443,9 +520,8 @@ deal.addEventListener("click", () => {
         card2.innerHTML === "K" ||
         card2.innerHTML === "Q" ||
         card2.innerHTML === "J"
-      ) {
+      )
         card2.innerHTML = 10;
-      }
       if (card2.innerHTML === "A") card2.innerHTML = 1;
       totalPlayer2.innerHTML = card2.innerHTML;
 
@@ -464,7 +540,10 @@ deal.addEventListener("click", () => {
         );
       }
 
-      createPlayerCard2(2);
+      let totP;
+      let totP2;
+
+      createPlayer2Card(2);
       card2.remove();
       player2CardValue.unshift(player1CardValue[1]);
       player1CardValue.pop();
@@ -472,352 +551,104 @@ deal.addEventListener("click", () => {
       itsAS(totalPlayer2, player2CardValue);
       if (Number(totalPlayer2.innerHTML) === 21) {
         styleBJ(totalPlayer2);
-        let croupierCounterSplit = 3;
-        inputStandSplit.addEventListener("click", () => {
-          remove(inputHitSplit, inputStandSplit);
-          remove(inputHitSplit2, inputStandSplit2);
-          createCroupierCard(2);
-          itsAS(totalCroupier, croupierCardValue);
-          if (totalCroupier.innerHTML === 21)
-            winnerSplitBoth(croupierSplit, both);
-          if (totP === undefined) totP = totalPlayer.innerHTML;
-          if (totP2 === undefined) {
-            totP2 = totalPlayer2.innerHTML;
-            if (totP2 === "BJ") totP2 = 21;
-          }
-          let intSplit = setInterval(() => {
-            while (
-              totalCroupier.innerHTML != 17 &&
-              totalCroupier.innerHTML != 18 &&
-              totalCroupier.innerHTML != 19 &&
-              totalCroupier.innerHTML != 20 &&
-              totalCroupier.innerHTML != 21 &&
-              totalCroupier.innerHTML < 22
-            ) {
-              createCroupierCard(croupierCounterSplit);
-              croupierCounterSplit += 1;
-              ASPasses21(
-                totalCroupier,
-                croupierCardValue,
-                croupierCounterSplit
-              );
-            }
-            if (totalCroupier.innerHTML === 21) {
-              if (totP === totalCroupier.innerHTML) {
-                winner(draw);
-                clearInterval(intSplit);
-              } else {
-                winner(croupier);
-                clearInterval(intSplit);
-              }
-            }
-            console.log(totP);
-            console.log(totP2);
-            if (totP > 21 && totP2 > totalCroupier.innerHTML) {
-              console.log(`game 1 is greater than 21 and I win`);
-              winnerSplit(passedSplit, deck1, playerSplit, deck2);
-              styleWin(totalPlayer2);
-              clearInterval(intSplit);
-            } else if (
-              totalCroupier.innerHTML > 21 &&
-              totP <= 21 &&
-              totP2 <= 21
-            ) {
-              console.log(`the croupier is older than 21`);
-              winnerSplitBoth(playerSplit, both);
-              styleWin(totalPlayer);
-              clearInterval(intSplit);
-            } else if (
-              totalCroupier.innerHTML > totP &&
-              totalCroupier.innerHTML < totP2
-            ) {
-              console.log(`I lose and I win`);
-              winnerSplit(croupierSplit, deck1, playerSplit, deck2);
-              styleLose(totalPlayer);
-              clearInterval(intSplit);
-            } else if (
-              totalCroupier.innerHTML < totP &&
-              totalCroupier.innerHTML < totP2 &&
-              totP <= 21 &&
-              totP2 <= 21
-            ) {
-              console.log(`I win and I win`);
-              winnerSplitBoth(playerSplit, both);
-              styleWin(totalPlayer);
-              clearInterval(intSplit);
-            } else if (
-              totalCroupier.innerHTML === totP &&
-              totalCroupier.innerHTML < totP2 &&
-              totP <= 21
-            ) {
-              console.log(`I draw and I win`);
-              winnerSplit(drawSplit, deck1, playerSplit, deck2);
-              stylePush(totalPlayer);
-              styleWin(totalPlayer2);
-              clearInterval(intSplit);
-            } else {
-              clearInterval(intSplit);
-              console.log("Error");
-            }
-          }, 1000);
-        });
-        //Observe
-      } else console.log("its not");
+        totP2 = 21;
+      }
 
       console.log(player1CardValue);
       createPlayerCard(2);
-      if (Number(totalPlayer.innerHTML) === 21) remplaceClasses();
+      itsAS(totalPlayer, player1CardValue);
+      if (Number(totalPlayer.innerHTML) === 21) {
+        totP = 21;
+        styleBJ(totalPlayer);
+        if (totP2 === 21) {
+          remove(inputHitSplit, inputStandSplit);
+          resultSplitBoth(blackJackSplit, both);
+        } else {
+          remplaceClasses();
+        }
+      }
       console.log(player1CardValue);
 
-      // player 1, hit and stand
-      let totP;
+      // hit player 1
       let playerSplitCounter = 3;
       inputHitSplit.addEventListener("click", () => {
+        ASWhenHit(totalPlayer, player1CardValue);
         createPlayerCard(playerSplitCounter);
+        itsAS(totalPlayer, player1CardValue);
         playerSplitCounter += 1;
-        ASPasses21(totalPlayer, player1CardValue, playerSplitCounter);
         if (Number(totalPlayer.innerHTML) === 21) {
-          totP = totalPlayer.innerHTML;
-          remplaceClasses();
+          totP = 21;
+          styleBJ(totalPlayer);
+          if (totP2 === 21) {
+            remove(inputHitSplit, inputStandSplit);
+            resultSplitBoth(blackJackSplit, both);
+          } else {
+            remplaceClasses();
+          }
         }
-        if (totalPlayer.innerHTML > 21) {
+        if (Number(totalPlayer.innerHTML) > 21) {
           totP = totalPlayer.innerHTML;
           styleBust(totalPlayer);
+          if (totP2 === 21) {
+            remove(inputHitSplit, inputStandSplit);
+            resultSplit(passedSplit, deck1, blackJackSplit, deck2);
+          } else {
+            remplaceClasses();
+          }
+        }
+      });
+
+      // stand player 1
+      inputStandSplit.addEventListener("click", () => {
+        ASWhenStand(totalPlayer, player1CardValue);
+        if (totP2 === 21) {
+          remove(inputHitSplit, inputStandSplit);
+          cardsInterval();
+        } else {
           remplaceClasses();
         }
       });
 
-      inputStandSplit.addEventListener("click", remplaceClasses);
-
-      // player 2, hit and stand
-      let totP2;
+      // hit player 2
       let playerSplitCounter2 = 3;
       inputHitSplit2.addEventListener("click", () => {
-        createPlayerCard2(playerSplitCounter2);
+        ASWhenHit(totalPlayer2, player2CardValue);
+        createPlayer2Card(playerSplitCounter2);
+        itsAS(totalPlayer2, player2CardValue);
         playerSplitCounter2 += 1;
-        ASPasses21(totalPlayer2, player2CardValue, playerSplitCounter2);
-        if (totP === undefined) totP = totalPlayer.innerHTML;
-        if (totP > 21 && totalPlayer2.innerHTML > 21) {
-          remove(inputHitSplit2, inputStandSplit2);
+        totP = totalPlayer.innerHTML;
+        totP2 = totalPlayer2.innerHTML;
+        if (totP > 21 && totP2 > 21) {
           console.log(`both over 21`);
-          totP2 = totalPlayer2.innerHTML;
-          styleBust(totalPlayer2);
-          winnerSplitBoth(passedSplit, both);
-        } else if (Number(totalPlayer2.innerHTML) === 21) {
           remove(inputHitSplit2, inputStandSplit2);
-          cardsInterval();
-        } else if (totalPlayer2.innerHTML > 21) {
-          remove(inputHitSplit2, inputStandSplit2);
-          totP2 = totalPlayer2.innerHTML;
           styleBust(totalPlayer2);
-          createCroupierCard(2);
-          itsAS(totalCroupier, croupierCardValue);
-          if (totalCroupier.innerHTML === 21)
-            winnerSplitBoth(croupierSplit, both);
-          if (totP2 === undefined) totP2 = totalPlayer2.innerHTML;
-          let intSplit = setInterval(() => {
-            while (
-              totalCroupier.innerHTML != 17 &&
-              totalCroupier.innerHTML != 18 &&
-              totalCroupier.innerHTML != 19 &&
-              totalCroupier.innerHTML != 20 &&
-              totalCroupier.innerHTML != 21 &&
-              totalCroupier.innerHTML < 22
-            ) {
-              createCroupierCard(croupierCounterSplit);
-              croupierCounterSplit += 1;
-              ASPasses21(
-                totalCroupier,
-                croupierCardValue,
-                croupierCounterSplit
-              );
-            }
-            if (totalCroupier.innerHTML === 21) {
-              if (totP === totalCroupier.innerHTML) {
-                winner(draw);
-                clearInterval(intSplit);
-              } else {
-                winner(croupier);
-                clearInterval(intSplit);
-              }
-            }
-
-            if (
-              totP > 21 &&
-              totP2 < totalCroupier.innerHTML &&
-              totalCroupier.innerHTML <= 21
-            ) {
-              console.log(`game 1 is greater than 21 and I lose`);
-              winnerSplit(passedSplit, deck1, croupierSplit, deck2);
-              styleLose(totalPlayer2);
-              clearInterval(intSplit);
-            } else if (totP > 21 && totP2 > totalCroupier.innerHTML) {
-              console.log(`game 1 is greater than 21 and I win`);
-              winnerSplit(passedSplit, deck1, playerSplit, deck2);
-              styleWin(totalPlayer2);
-              clearInterval(intSplit);
-            } else if (
-              totP > 21 &&
-              totP2 === totalCroupier.innerHTML &&
-              totP2 <= 21
-            ) {
-              console.log(`game 1 is greater than 21 and I draw`);
-              winnerSplit(passedSplit, deck1, drawSplit, deck2);
-              stylePush(totalPlayer2);
-              clearInterval(intSplit);
-            } else if (
-              totP2 > 21 &&
-              totP < totalCroupier.innerHTML &&
-              totalCroupier.innerHTML <= 21
-            ) {
-              console.log(`game 2 is greater than 21 and I lose`);
-              winnerSplit(croupierSplit, deck1, passedSplit, deck2);
-              styleLose(totalPlayer);
-              clearInterval(intSplit);
-            } else if (totP2 > 21 && totP > totalCroupier.innerHTML) {
-              console.log(`game 2 is greater than 21 and I win`);
-              winnerSplit(playerSplit, deck1, passedSplit, deck2);
-              styleWin(totalPlayer);
-              clearInterval(intSplit);
-            } else if (
-              totP2 > 21 &&
-              totP <= 20 &&
-              totalCroupier.innerHTML > 21
-            ) {
-              console.log(`I win and game 2 is greater than 21`);
-              winnerSplit(playerSplit, deck1, passedSplit, deck2);
-              styleWin(totalPlayer);
-              clearInterval(intSplit);
-            } else if (
-              totP2 > 21 &&
-              totP === totalCroupier.innerHTML &&
-              totP <= 21
-            ) {
-              console.log(`game 2 is greater than 21 and I draw`);
-              winnerSplit(drawSplit, deck1, passedSplit, deck2);
-              stylePush(totalPlayer);
-              clearInterval(intSplit);
-            } else if (
-              totP <= 21 &&
-              totP2 > 21 &&
-              totP > totalCroupier.innerHTML
-            ) {
-              console.log(`game 2 is greater than 21`);
-              winnerSplit(playerSplit, deck1, passedSplit, deck2);
-              styleWin(totalPlayer);
-              clearInterval(intSplit);
-            } else if (
-              totalCroupier.innerHTML > 21 &&
-              totP <= 21 &&
-              totP2 <= 21
-            ) {
-              console.log(`croupier is greater than 21`);
-              winnerSplitBoth(playerSplit, both);
-              styleWin(totalPlayer);
-              styleWin(totalPlayer2);
-              clearInterval(intSplit);
-            } else if (
-              totalCroupier.innerHTML > totP &&
-              totalCroupier.innerHTML > totP2
-            ) {
-              console.log(`I lose and I lose`);
-              winnerSplitBoth(croupierSplit, both);
-              styleLose(totalPlayer);
-              styleLose(totalPlayer2);
-              clearInterval(intSplit);
-            } else if (
-              totalCroupier.innerHTML > totP &&
-              totalCroupier.innerHTML < totP2
-            ) {
-              console.log(`I lost and I win`);
-              winnerSplit(croupierSplit, deck1, playerSplit, deck2);
-              styleLose(totalPlayer);
-              styleWin(totalPlayer2);
-              clearInterval(intSplit);
-            } else if (
-              totalCroupier.innerHTML > totP &&
-              totalCroupier.innerHTML === totP2 &&
-              totP2 <= 21
-            ) {
-              console.log(`I lost and I draw`);
-              winnerSplit(croupierSplit, deck1, drawSplit, deck2);
-              styleLose(totalPlayer);
-              stylePush(totalPlayer2);
-              clearInterval(intSplit);
-            } else if (
-              totalCroupier.innerHTML < totP &&
-              totalCroupier.innerHTML < totP2
-            ) {
-              console.log(`I win and I win`);
-              winnerSplitBoth(playerSplit, both);
-              styleWin(totalPlayer);
-              styleWin(totalPlayer2);
-              clearInterval(intSplit);
-            } else if (
-              totalCroupier.innerHTML < totP &&
-              totalCroupier.innerHTML > totP2
-            ) {
-              console.log(`I win and I lost`);
-              winnerSplit(playerSplit, deck1, croupierSplit, deck2);
-              styleWin(totalPlayer);
-              styleLose(totalPlayer2);
-              clearInterval(intSplit);
-            } else if (
-              totalCroupier.innerHTML < totP &&
-              totalCroupier.innerHTML === totP2 &&
-              totP2 <= 21
-            ) {
-              console.log(`I win and I draw`);
-              winnerSplit(playerSplit, deck1, drawSplit, deck2);
-              styleWin(totalPlayer);
-              stylePush(totalPlayer2);
-              clearInterval(intSplit);
-            } else if (
-              totalCroupier.innerHTML === totP &&
-              totalCroupier.innerHTML === totP2
-            ) {
-              console.log(`Idraw and I draw`);
-              winnerSplitBoth(drawSplit, both);
-              stylePush(totalPlayer);
-              stylePush(totalPlayer2);
-              clearInterval(intSplit);
-            } else if (
-              totalCroupier.innerHTML === totP &&
-              totalCroupier.innerHTML > totP2 &&
-              totP <= 21
-            ) {
-              console.log(`I draw and I lost`);
-              winnerSplit(drawSplit, deck1, croupierSplit, deck2);
-              stylePush(totalPlayer);
-              styleLose(totalPlayer2);
-              clearInterval(intSplit);
-            } else if (
-              totalCroupier.innerHTML === totP &&
-              totalCroupier.innerHTML < totP2 &&
-              totP <= 21
-            ) {
-              console.log(`I draw and I win`);
-              winnerSplit(drawSplit, deck1, playerSplit, deck2);
-              stylePush(totalPlayer);
-              styleWin(totalPlayer2);
-              clearInterval(intSplit);
-            } else {
-              clearInterval(intSplit);
-              console.log("Error");
-            }
-          }, 1000);
+          resultSplitBoth(passedSplit, both);
+        } else if (totP2 === 21) {
+          if (totP === 21) {
+            resultSplitBoth(blackJackSplit, both);
+          } else {
+            remove(inputHitSplit2, inputStandSplit2);
+            cardsInterval();
+          }
+        } else if (totP2 > 21) {
+          remove(inputHitSplit2, inputStandSplit2);
+          styleBust(totalPlayer2);
+          resultSplit(blackJackSplit, deck1, passedSplit, deck2);
         }
       });
-
+      // stand player 2
       let croupierCounterSplit = 3;
       inputStandSplit2.addEventListener("click", () => {
         remove(inputHitSplit2, inputStandSplit2);
+        ASWhenStand(totalPlayer2, player2CardValue);
         createCroupierCard(2);
         itsAS(totalCroupier, croupierCardValue);
         if (totalCroupier.innerHTML === 21)
-          winnerSplitBoth(croupierSplit, both);
-        if (totP === undefined) totP = totalPlayer.innerHTML;
-        if (totP2 === undefined) totP2 = totalPlayer2.innerHTML;
+          resultSplitBoth(croupierSplit, both);
+        totP = totalPlayer.innerHTML;
+        totP2 = totalPlayer2.innerHTML;
+        // console.log(totP);
+        // console.log(totP2);
         let intSplit = setInterval(() => {
           while (
             totalCroupier.innerHTML != 17 &&
@@ -829,7 +660,7 @@ deal.addEventListener("click", () => {
           ) {
             createCroupierCard(croupierCounterSplit);
             croupierCounterSplit += 1;
-            ASPasses21(totalCroupier, croupierCardValue, croupierCounterSplit);
+            ASPasses21(totalCroupier, croupierCardValue);
           }
           if (totalCroupier.innerHTML === 21) {
             if (totP === totalCroupier.innerHTML) {
@@ -840,9 +671,30 @@ deal.addEventListener("click", () => {
               clearInterval(intSplit);
             }
           }
+          //CONDITIONS
           if (totP > 21 && totP2 > 21) {
             console.log(`both over 21`);
-            winnerSplitBoth(passedSplit, both);
+            resultSplitBoth(passedSplit, both);
+            clearInterval(intSplit);
+          } else if (
+            totP === 21 &&
+            totalCroupier.innerHTML <= 21 &&
+            totalCroupier.innerHTML > totP2 &&
+            totP2 <= 21
+          ) {
+            console.log(`BJ and I lose`);
+            resultSplit(playerSplit, deck1, croupierSplit, deck2);
+            styleLose(totalPlayer2);
+            clearInterval(intSplit);
+          } else if (
+            totP2 === 21 &&
+            totalCroupier.innerHTML <= 21 &&
+            totalCroupier.innerHTML > totP &&
+            totP <= 21
+          ) {
+            console.log(`I lose and BJ`);
+            resultSplit(croupierSplit, deck1, playerSplit, deck2);
+            styleLose(totalPlayer);
             clearInterval(intSplit);
           } else if (
             totP > 21 &&
@@ -850,19 +702,23 @@ deal.addEventListener("click", () => {
             totalCroupier.innerHTML <= 21
           ) {
             console.log(`game 1 is greater than 21 and I lose`);
-            winnerSplit(passedSplit, deck1, croupierSplit, deck2);
+            resultSplit(passedSplit, deck1, croupierSplit, deck2);
             styleLose(totalPlayer2);
             clearInterval(intSplit);
-          } else if (totP > 21 && totP2 > totalCroupier.innerHTML) {
+          } else if (
+            totP > 21 &&
+            totP2 > totalCroupier.innerHTML &&
+            totP2 <= 21
+          ) {
             console.log(`game 1 is greater than 21 and I win`);
-            winnerSplit(passedSplit, deck1, playerSplit, deck2);
+            resultSplit(passedSplit, deck1, playerSplit, deck2);
             styleWin(totalPlayer2);
             clearInterval(intSplit);
           } else if (totP > 21 && totalCroupier.innerHTML > 21) {
             console.log(
               `game 1 is greater than 21 and I win because croupier over than 21`
             );
-            winnerSplit(passedSplit, deck1, playerSplit, deck2);
+            resultSplit(passedSplit, deck1, playerSplit, deck2);
             styleWin(totalPlayer2);
             clearInterval(intSplit);
           } else if (
@@ -871,7 +727,7 @@ deal.addEventListener("click", () => {
             totP2 <= 21
           ) {
             console.log(`game 1 is greater than 21 and I draw`);
-            winnerSplit(passedSplit, deck1, drawSplit, deck2);
+            resultSplit(passedSplit, deck1, drawSplit, deck2);
             stylePush(totalPlayer2);
             clearInterval(intSplit);
           } else if (
@@ -879,8 +735,8 @@ deal.addEventListener("click", () => {
             totP2 > 21 &&
             totP > totalCroupier.innerHTML
           ) {
-            console.log(`game 1 is greater than 21`);
-            winnerSplit(playerSplit, deck1, passedSplit, deck2);
+            console.log(`game 2 is greater than 21`);
+            resultSplit(playerSplit, deck1, passedSplit, deck2);
             styleWin(totalPlayer);
             clearInterval(intSplit);
           } else if (
@@ -889,7 +745,7 @@ deal.addEventListener("click", () => {
             totP2 <= 21
           ) {
             console.log(`croupier is greater than 21 and I lose`);
-            winnerSplitBoth(playerSplit, both);
+            resultSplitBoth(playerSplit, both);
             styleWin(totalPlayer);
             styleWin(totalPlayer2);
             clearInterval(intSplit);
@@ -899,7 +755,7 @@ deal.addEventListener("click", () => {
             totalCroupier.innerHTML <= 21
           ) {
             console.log(`I lose and I lose`);
-            winnerSplitBoth(croupierSplit, both);
+            resultSplitBoth(croupierSplit, both);
             styleLose(totalPlayer);
             styleLose(totalPlayer2);
             clearInterval(intSplit);
@@ -908,7 +764,7 @@ deal.addEventListener("click", () => {
             totalCroupier.innerHTML < totP2
           ) {
             console.log(`I lose and I win`);
-            winnerSplit(croupierSplit, deck1, playerSplit, deck2);
+            resultSplit(croupierSplit, deck1, playerSplit, deck2);
             styleLose(totalPlayer);
             styleWin(totalPlayer2);
             clearInterval(intSplit);
@@ -918,7 +774,7 @@ deal.addEventListener("click", () => {
             totP2 <= 21
           ) {
             console.log(`I lose and I draw`);
-            winnerSplit(croupierSplit, deck1, drawSplit, deck2);
+            resultSplit(croupierSplit, deck1, drawSplit, deck2);
             styleLose(totalPlayer);
             stylePush(totalPlayer2);
             clearInterval(intSplit);
@@ -929,7 +785,7 @@ deal.addEventListener("click", () => {
             totP2 <= 21
           ) {
             console.log(`I win and I win`);
-            winnerSplitBoth(playerSplit, both);
+            resultSplitBoth(playerSplit, both);
             styleWin(totalPlayer);
             styleWin(totalPlayer2);
             clearInterval(intSplit);
@@ -939,7 +795,7 @@ deal.addEventListener("click", () => {
             totP <= 21
           ) {
             console.log(`I win and I lose`);
-            winnerSplit(playerSplit, deck1, croupierSplit, deck2);
+            resultSplit(playerSplit, deck1, croupierSplit, deck2);
             styleWin(totalPlayer);
             styleLose(totalPlayer2);
             clearInterval(intSplit);
@@ -949,7 +805,7 @@ deal.addEventListener("click", () => {
             totP2 <= 21
           ) {
             console.log(`I win and I draw`);
-            winnerSplit(playerSplit, deck1, drawSplit, deck2);
+            resultSplit(playerSplit, deck1, drawSplit, deck2);
             styleWin(totalPlayer);
             stylePush(totalPlayer2);
             clearInterval(intSplit);
@@ -958,7 +814,7 @@ deal.addEventListener("click", () => {
             totalCroupier.innerHTML === totP2
           ) {
             console.log(`I draw and I draw`);
-            winnerSplitBoth(drawSplit, both);
+            resultSplitBoth(drawSplit, both);
             stylePush(totalPlayer);
             stylePush(totalPlayer2);
             clearInterval(intSplit);
@@ -968,7 +824,7 @@ deal.addEventListener("click", () => {
             totP <= 21
           ) {
             console.log(`I draw and I lose`);
-            winnerSplit(drawSplit, deck1, croupierSplit, deck2);
+            resultSplit(drawSplit, deck1, croupierSplit, deck2);
             stylePush(totalPlayer);
             styleLose(totalPlayer2);
             clearInterval(intSplit);
@@ -978,13 +834,16 @@ deal.addEventListener("click", () => {
             totP <= 21
           ) {
             console.log(`I draw and I win`);
-            winnerSplit(drawSplit, deck1, playerSplit, deck2);
+            resultSplit(drawSplit, deck1, playerSplit, deck2);
             stylePush(totalPlayer);
             styleWin(totalPlayer2);
             clearInterval(intSplit);
           } else {
             clearInterval(intSplit);
             console.log("Error");
+            console.log(totP);
+            console.log(totP2);
+            console.log(totalCroupier.innerHTML);
           }
         }, 1000);
       });
@@ -1000,7 +859,9 @@ deal.addEventListener("click", () => {
         `<input type="button" value="Hit" id="hit"><input type="button" value="Stand" id="stand"><input type="button" value="Split" class="input-split">`
       )
         inputSplit.classList.replace("input-split", "input-split-hidden");
+      ASWhenHit(totalPlayer, player1CardValue);
       createPlayerCard(playerCounter);
+      itsAS(totalPlayer, player1CardValue);
       playerCounter += 1;
       if (Number(totalPlayer.innerHTML) === 21) {
         remove(inputHit, inputStand);
@@ -1033,19 +894,22 @@ deal.addEventListener("click", () => {
         `<input type="button" value="Hit" id="hit"><input type="button" value="Stand" id="stand"><input type="button" value="Split" class="input-split">`
       )
         buttons.removeChild(inputSplit);
+      ASWhenStand(totalPlayer, player1CardValue);
       remove(inputHit, inputStand);
       cardsInterval();
     });
   } else {
+    //Cards are not equals
     itsAS(totalPlayer, player1CardValue);
     buttons.innerHTML = `<input type="button" value="Hit" id="hit"><input type="button" value="Stand" id="stand">`;
     let playerCounter = 3;
+    // hit
     let inputHit = document.getElementById("hit");
     inputHit.addEventListener("click", () => {
+      ASWhenHit(totalPlayer, player1CardValue);
       createPlayerCard(playerCounter);
       itsAS(totalPlayer, player1CardValue);
       playerCounter += 1;
-      ASPasses21(totalPlayer, player1CardValue);
       if (Number(totalPlayer.innerHTML) === 21) {
         remove(inputHit, inputStand);
         cardsInterval();
@@ -1069,8 +933,10 @@ deal.addEventListener("click", () => {
     card0.setAttribute("id", "card-0");
     placeCroupier.appendChild(totalCroupier);
 
+    //stand
     let inputStand = document.getElementById("stand");
     inputStand.addEventListener("click", () => {
+      ASWhenStand(totalPlayer, player1CardValue);
       remove(inputHit, inputStand);
       cardsInterval();
     });
