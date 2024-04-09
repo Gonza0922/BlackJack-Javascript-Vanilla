@@ -86,7 +86,7 @@ body {
   border-radius: 50px;
 }
 
-#card-0 {
+#face-down-card {
   font-size: 25px;
   width: 90px;
   height: 140px;
@@ -97,7 +97,7 @@ body {
   text-align: start;
 }
 
-.card-0-croupier {
+.face-down-card-croupier {
   position: absolute;
   margin: 10px 0px 0px 30px;
 }
