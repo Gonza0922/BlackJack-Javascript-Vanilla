@@ -1,41 +1,13 @@
 body {
+  margin: 0;
+  padding: 0;
   font-family: sans-serif;
   background: radial-gradient(rgb(42, 107, 192), rgb(8, 68, 146));
-}
-
-.dinero {
-  color: #fff;
-}
-
-.apuesta {
-  margin-top: 100px;
-}
-
-#moneda,
-#moneda-cambiar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50px;
-  display: inline-block;
-  cursor: pointer;
-  font-size: 30px;
-}
-
-.numero,
-.numero-cambiar {
-  margin: 25px auto;
-}
-
-.moneda-100 {
-  background-color: aqua;
-}
-
-.moneda-500 {
-  background-color: rgb(166, 235, 7);
-}
-
-.moneda-1000 {
-  background-color: rgb(223, 22, 22);
+  min-width: 720px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  width: 100vw;
+  height: 100vh;
 }
 
 .title {
@@ -45,15 +17,29 @@ body {
 }
 
 .container {
-  margin-top: 20px;
   text-align: center;
-  /* border: 3px solid black; */
-  height: 850px;
+  height: 820px;
   overflow-y: hidden;
 }
 
+.star-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.principal-title {
+  min-width: 680px;
+  position: absolute;
+  top: 100px;
+  color: #ffffff;
+  font-size: 80px;
+}
+
 .start {
-  margin: 250px auto;
   width: 200px;
   height: 100px;
   font-size: 30px;
@@ -75,12 +61,13 @@ body {
   border: 2px solid #000;
   background-color: #fff;
   text-align: start;
+  padding-left: 2px;
 }
 
 .place-croupier {
   width: 200px;
   height: 200px;
-  margin: 0 auto;
+  margin: 50px auto;
   position: relative;
   padding: 20px;
   border-radius: 50px;
@@ -97,43 +84,39 @@ body {
   text-align: start;
 }
 
-.face-down-card-croupier {
-  position: absolute;
-  margin: 10px 0px 0px 30px;
-}
-
 .card-1-croupier {
   position: absolute;
 }
 
-.card-2-croupier {
+.card-2-croupier,
+.face-down-card-croupier {
   position: absolute;
-  margin: 10px 0px 0px 30px;
+  margin: 15px 0px 0px 35px;
 }
 
 .card-3-croupier {
   position: absolute;
-  margin: 20px 0px 0px 60px;
+  margin: 30px 0px 0px 70px;
 }
 
 .card-4-croupier {
   position: absolute;
-  margin: 30px 0px 0px 90px;
+  margin: 45px 0px 0px 105px;
 }
 
 .card-5-croupier {
   position: absolute;
-  margin: 40px 0px 0px 120px;
+  margin: 60px 0px 0px 140px;
 }
 
 .card-6-croupier {
   position: absolute;
-  margin: 50px 0px 0px 150px;
+  margin: 75px 0px 0px 175px;
 }
 
 .card-7-croupier {
   position: absolute;
-  margin: 60px 0px 0px 1800px;
+  margin: 90px 0px 0px 210px;
 }
 
 .div-total-croupier {
@@ -154,7 +137,6 @@ body {
   position: absolute;
   width: 200px;
   height: 200px;
-  /* background-color: goldenrod; */
   padding: 10px;
   border-radius: 10px;
   border-radius: 50px;
@@ -176,45 +158,47 @@ body {
 
 .card-2-player {
   position: absolute;
-  margin: 10px 0px 0px 30px;
+  margin: 15px 0px 0px 35px;
 }
 
 .card-3-player {
   position: absolute;
-  margin: 20px 0px 0px 60px;
+  margin: 30px 0px 0px 70px;
 }
 
 .card-4-player {
   position: absolute;
-  margin: 30px 0px 0px 90px;
+  margin: 45px 0px 0px 105px;
 }
 
 .card-5-player {
   position: absolute;
-  margin: 40px 0px 0px 120px;
+  margin: 60px 0px 0px 140px;
 }
 
 .card-6-player {
   position: absolute;
-  margin: 50px 0px 0px 150px;
+  margin: 75px 0px 0px 175px;
 }
 
 .card-7-player {
   position: absolute;
-  margin: 60px 0px 0px 180px;
+  margin: 90px 0px 0px 210px;
 }
 
 .card-8-player {
   position: absolute;
-  margin: 70px 0px 0px 210px;
+  margin: 105px 0px 0px 245px;
 }
 
 .card-9-player {
   position: absolute;
-  margin: 80px 0px 0px 240px;
+  margin: 120px 0px 0px 275px;
 }
 
-.div-total-player {
+.div-total-player,
+.div-total-player-split,
+.div-total-player2-split {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -224,17 +208,25 @@ body {
   border: 2px solid #000;
   padding: 3px;
   position: absolute;
-  bottom: -12px;
   background-color: #fff;
 }
 
-.div-buttons {
-  text-align: end;
-  margin-right: 550px;
+.div-total-player {
+  bottom: -12px;
 }
 
-.div-buttons-split {
-  text-align: center;
+.div-total-player-split,
+.div-total-player2-split {
+  bottom: -22px;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.div-buttons {
+  margin-left: 150px;
 }
 
 #hit {
@@ -320,6 +312,7 @@ body {
 
 .winner-background-div {
   box-sizing: border-box;
+  min-width: 720px;
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.3);
@@ -330,13 +323,14 @@ body {
 }
 
 .div-winner {
-  width: 400px;
+  min-width: 400px;
   height: 130px;
   background-color: #fff;
   text-align: center;
   margin: 350px auto 350px auto;
   border-radius: 2px;
   border: 5px solid rgb(0, 0, 0);
+  padding: 10px;
 }
 
 .form {
@@ -344,10 +338,11 @@ body {
   cursor: pointer;
   border: 2px solid rgb(199, 199, 199);
   border-radius: 5px;
+  padding: 5px;
 }
 
 .form:hover {
-  background-color: rgb(236, 236, 236);
+  background-color: rgb(223, 223, 223);
 }
 
 h2 {
@@ -355,7 +350,7 @@ h2 {
 }
 
 .div-player-and-player2 {
-  margin: 150px auto 0px auto;
+  margin: 190px auto 0px auto;
   width: 700px;
   height: 250px;
   position: relative;
@@ -366,21 +361,6 @@ h2 {
   width: 200px;
   height: 200px;
   right: 0px;
-  /* background-color: goldenrod; */
   padding: 10px;
   border-radius: 50px;
-}
-
-.div-total-player2 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 2px solid #000;
-  padding: 3px;
-  position: absolute;
-  bottom: -12px;
-  background-color: #fff;
 }

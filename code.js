@@ -6,6 +6,7 @@ let placeCroupier = document.querySelector(".place-croupier");
 let placePlayer = document.querySelector(".place-player");
 let divTitleCroupier = document.querySelector(".div-title-croupier");
 let divTitlePlayer = document.querySelector(".div-title-player");
+let containerDeal = document.querySelector(".star-container");
 let deal = document.querySelector(".button");
 
 let totalPlayer = document.createElement("DIV");
@@ -358,7 +359,7 @@ const finalResultSplitPlayer1 = (style, result1, result2, interval) => {
 };
 
 deal.addEventListener("click", () => {
-  container.removeChild(deal);
+  container.removeChild(containerDeal);
   let titlePlayer = document.createElement("H2");
   divTitlePlayer.appendChild(titlePlayer);
   titlePlayer.classList.add("title");
@@ -458,7 +459,7 @@ deal.addEventListener("click", () => {
       titlePlayer2.innerHTML = "Player-Game-2";
 
       let totalPlayer2 = document.createElement("DIV");
-      totalPlayer2.classList.add("div-total-player2");
+      totalPlayer2.classList.add("div-total-player2-split");
       let numberTotalPlayer2 = 0;
 
       function createPlayer2Card(i) {
@@ -488,6 +489,7 @@ deal.addEventListener("click", () => {
         resultSplit(result1, deck1, result2, deck2);
       };
 
+      totalPlayer.classList.replace("div-total-player", "div-total-player-split");
       placePlayer.classList.replace("place-player", "place-player-split");
       buttons.classList.replace("div-buttons", "div-buttons-split");
 
